@@ -1,0 +1,77 @@
+#QUESTAO 2
+
+# 1.1 :
+
+# Parâmetros
+n <- 1e7
+p <- 1e-7
+
+#Delimitar um limite de valores para ele calcular
+valores <- 0:6
+
+#Fazer a PMF da Binomial
+Pmf <- dbinom(valores, n, p, FALSE)
+
+#Plotar o gráfico
+barplot(Pmf,
+        names.arg = valores,
+        xlab = "Número de vencedores por dia",
+        ylab = "Probabilidade",
+        main = "PMF Binomial",
+        col = "lightgray")
+
+#Parametro
+lambda <- 1
+valores <- 0:6
+
+#Fazer PMF da Poisson
+Pmf <- dpois(valores, lambda)
+
+#plotar grafico
+barplot(Pmf,
+        names.arg = valores,
+        xlab = "Número de vencedores por dia",
+        ylab = "Probabilidade",
+        main = "PMF Poisson(1)",
+        col = "lightgray")
+
+#1.2
+#BINOMIAL
+# Parâmetros
+n <- 1e7
+p <- 1e-7
+
+#Achar esperança e variância da Binomial
+k <- 0:6
+Pmf <- dbinom(valores, n, p, FALSE)
+
+EX <- sum(k * Pmf)
+EX
+
+VarX <- sum((k - EX)^2 * Pmf)
+VarX
+
+#POISSON
+# Parâmetros
+lambda <- 1
+k <- 0:6
+pmf <- dpois(k, lambda)
+
+EX <- sum(k * pmf)
+EX
+VarX <- sum((k - EX)^2 * pmf)
+VarX
+
+#1.4
+
+#Parametros
+lambda <- 1
+w <- 0:50    # valores para fazer a pmf
+
+#Fazer a PMF de Poisson
+pmf_w <- dpois(w, lambda)
+
+#Achar a probabilidade de eu ganhar o premio
+prob <- sum( (1 / (w + 1)) * pmf_w )
+prob
+
