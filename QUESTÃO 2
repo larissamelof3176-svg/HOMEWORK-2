@@ -1,6 +1,6 @@
 #QUESTAO 2
 
-# 1.1 :
+# 1.1 
 
 # Parâmetros
 n <- 1e7
@@ -61,6 +61,19 @@ EX <- sum(k * pmf)
 EX
 VarX <- sum((k - EX)^2 * pmf)
 VarX
+
+#1.3
+
+#Parametros
+lambda <- 1
+w <- 0:50    # valores para fazer a pmf
+
+#Fazer a PMF de Poisson
+pmf_w <- dpois(w, lambda)
+
+#Achar a probabilidade de eu ganhar o premio
+prob <- sum( (1 / (w + 1)) * pmf_w )
+prob
 
 #1.4
 
