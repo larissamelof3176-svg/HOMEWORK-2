@@ -1,0 +1,103 @@
+# QUESTAO 3
+
+# 3.1
+
+# função principal
+
+funcao_gere_valores <- function(n){
+  npares <- ceiling( n / 2)
+  
+  # a) gerar duas variaveis aleatorias uniformes independentes
+  U1 <- runif( npares )
+  U2 <- runif( npares )
+  
+  # b) gerar valores inteiros pelas formulas de Box-Muller
+  Z1 <- sqrt(-2 * log(U1)) * cos(2 * pi * U2)
+  Z2 <- sqrt(-2 * log(U1)) * sin(2 * pi * U2)
+  
+  Z <- c( Z1 , Z2) [1:n]
+  
+  # c) converter o valor normal para a distribuicao de temperatura da cpu
+  Temp <- 62 + 3.5 * Z
+  
+  return(Temp)
+}
+
+# 3.2
+
+# gera 1.000 valores de Box-Muller
+set.seed(1)
+usandoBoxMuller <- funcao_gere_valores(1000)
+head(usandoBoxMuller)
+
+# gera 1.000 valores com a funcao ja embutida no R
+set.seed(1)
+usandonormal <- rnorm( n = 1000, mean = 62, sd = 3.5)
+head(usandonormal)
+
+# 3.3
+# a )
+m1 <- mean ( usandoBoxMuller )
+m2 <- mean ( usandonormal )
+# b )
+sd1 <- sd ( usandoBoxMuller )
+sd2 <- sd ( usandonormal )
+# c )
+min1 <- min ( usandoBoxMuller )
+max1 <- max ( usandoBoxMuller )
+min2 <- min ( usandonormal )
+27
+max2 <- max ( usandonormal )
+# d )
+p1 <- mean ( usandoBoxMuller > 68)
+p2 <- mean ( usandonormal > 68)
+# e )
+p3 <- mean ( usandoBoxMuller > 60 & usandoBoxMuller < 65)
+p4 <- mean ( usandonormal > 60 & usandonormal < 65)
+# f )
+existeemb <- any ( usandoBoxMuller > 75)
+existeemn <- any ( usandonormal > 75)
+p5 <- mean ( usandonormal > 75)
+
+# 3.4
+# a)
+hist(usandoBoxMuller,
+     probability = TRUE,
+     breaks = 20,
+     col = rgb(0, 0, 1, 0.4),
+     main = "Histograma das Temperaturas Simuladas",
+     xlab = "Temperatura (°C)",
+     ylab = "Densidade")
+
+hist(usandonormal,
+     probability = TRUE,
+     breaks = 20,
+     col = rgb(1, 0, 0, 0.4),
+     add = TRUE)
+
+# b)
+
+media <- 62
+dp <- 3.5
+
+#repetindo o mesmo do item anterior para sobrepor os histogramas depois
+hist(usandoBoxMuller,
+     probability = TRUE,
+     breaks = 20,
+     col = rgb(0, 0, 1, 0.4),
+     main = "Histograma das Temperaturas Simuladas",
+     xlab = "Temperatura (°C)",
+     ylab = "Densidade")
+
+hist(usandonormal,
+     probability = TRUE,
+     breaks = 20,
+     col = rgb(1, 0, 0, 0.4),
+     add = TRUE)
+
+#colocar a funcao PDF dnorm e sobrepor
+
+curve(dnorm(x, mean = media, sd = dp),
+      col = "black",
+      lwd = 2,
+      add = TRUE)
